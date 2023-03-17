@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>hls.js</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <script src="hls.js/hls.min.js"></script>
+</head>
+<body>
+<div style="width: 400px;height: 300px">
+    <video id="video" controls></video>
+</div>
+<script>
+    var video = document.getElementById('video');
+    var videoSrc = 'https://cctvwbndbd.a.bdydns.com/cctvwbnd/cctv1_2/index.m3u8';
+    if (Hls.isSupported()) {
+        var hls = new Hls();
+        hls.loadSource(videoSrc);
+        hls.attachMedia(video);
+        hls.on(Hls.Events.MANIFEST_PARSED, () => {
+            video.play()
+        });
+    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+        video.src = videoSrc;
+    }
+</script>
+</body>
+
+</html>
